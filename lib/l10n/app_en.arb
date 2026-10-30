@@ -1,0 +1,585 @@
+{
+  "@@locale": "en",
+  "appTitle": "WebroFM",
+  "@appTitle": {
+    "description": "App title"
+  },
+  "splashLoading": "Loading...",
+  "welcomeTitle": "Welcome to WebroFM",
+  "welcomeSubtitle": "Discover stories that move you",
+  "welcomeGetStarted": "Get Started",
+  "welcomeContinueAsGuest": "Continue as Guest",
+  "loginSearchCountries": "Search countries",
+  "loginInvalidPhone": "Please enter a valid phone number",
+  "loginRateLimitTitle": "Rate Limit Reached",
+  "loginRateLimitContent": "Too many OTP attempts. Please try again after 1 hour.",
+  "loginOk": "OK",
+  "loginAttemptRemaining": "Only {remaining} attempt remaining this hour",
+  "@loginAttemptRemaining": {
+    "placeholders": {
+      "remaining": {}
+    }
+  },
+  "loginTitle": "Login to Continue",
+  "loginSubtitle": "Enter your phone number to get started",
+  "loginPhoneHint": "(555) 000-0000",
+  "loginIAgreeTo": "I agree to the ",
+  "loginTermsOfUse": "Terms of Use",
+  "loginAnd": " and ",
+  "loginPrivacyPolicy": "Privacy Policy",
+  "loginSendOtp": "Send OTP",
+  "loginContinueAsGuest": "Continue as Guest",
+  "otpEnterCompleteCode": "Please enter the complete 6-digit code",
+  "otpTitle": "Verify Your Number",
+  "otpSubtitle": "Enter the code sent to",
+  "otpVerifyAndContinue": "Verify & Continue",
+  "otpDidntReceive": "Didn't receive the code? ",
+  "otpResend": "Resend OTP",
+  "completeProfileTitle": "Complete Your Profile",
+  "completeProfileSubtitle": "Help us personalise your experience",
+  "completeProfileBasicInfo": "Basic Info",
+  "completeProfileFullName": "Full Name *",
+  "completeProfileNameHint": "John Doe",
+  "completeProfileEmail": "Email Address",
+  "completeProfileEmailHint": "john@example.com",
+  "completeProfileGender": "Gender *",
+  "completeProfileDateOfBirth": "Date of Birth",
+  "completeProfileDobHint": "Select your date of birth",
+  "completeProfileMale": "Male",
+  "completeProfileFemale": "Female",
+  "completeProfileOther": "Other",
+  "completeProfileError": "Please enter your name and select gender",
+  "completeProfileSkip": "Skip",
+  "completeProfileContinue": "Continue",
+  "interestTitle": "Pick Your Interests",
+  "interestSubtitle": "Select categories you enjoy to get personalised recommendations",
+  "interestSectionHeader": "Choose Your Interests",
+  "interestTapToSelect": "Tap to select",
+  "interestContinue": "Continue to WebroFM",
+  "interestSkip": "Skip",
+  "registrationTitle": "Tell us about yourself",
+  "registrationSubtitle": "Help us personalize your experience",
+  "registrationPersonalInfo": "Personal Information",
+  "registrationFullName": "Full Name",
+  "registrationNameHint": "John Doe",
+  "registrationEmail": "Email Address",
+  "registrationEmailHint": "john@example.com",
+  "registrationDob": "Date of Birth",
+  "registrationDobHint": "Select your date of birth",
+  "registrationInterestsHeader": "Choose Your Interests",
+  "registrationInterestsSubtitle": "Select categories you enjoy",
+  "registrationContinue": "Continue to WebroFM",
+  "registrationNameError": "Please enter your name",
+  "homeContinueWatching": "Continue Watching",
+  "homeContinueListening": "Continue Listening",
+  "homeResume": "Resume",
+  "homeNewArrivals": "New Arrivals",
+  "homeSeeAll": "See All",
+  "homePopularNow": "Popular Now",
+  "homeNoShows": "No shows available",
+  "showDetailFailed": "Failed to load",
+  "showDetailNotFound": "Show not found",
+  "showDetailShareText": "Check out {title} on WebroFM!",
+  "@showDetailShareText": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "showDetailDownloadStarted": "Download started",
+  "showDetailNoDescription": "No description available.",
+  "showDetailReadLess": "Read less",
+  "showDetailReadMore": "Read more",
+  "showDetailPlayLatest": "Play Latest Episode",
+  "showDetailEpisodes": "Episodes",
+  "showDetailNoEpisodes": "No episodes available",
+  "showDetailMoreLikeThis": "More Like This",
+  "videoPlayerNoAudio": "No audio available for this episode",
+  "videoPlayerLoading": "Loading video...",
+  "videoPlayerNowPlaying": "Now Playing",
+  "videoPlayerPaused": "Paused",
+  "videoPlayerPlaybackError": "Playback error: {message}",
+  "@videoPlayerPlaybackError": {
+    "placeholders": {
+      "message": {}
+    }
+  },
+  "videoPlayerVideoPlayer": "Video Player",
+  "videoPlayerNext": "Next",
+  "videoPlayerAudio": "Audio",
+  "videoPlayerVideo": "Video",
+  "showCardNew": "NEW",
+  "searchHint": "Search shows, episodes...",
+  "searchTrending": "Trending Searches",
+  "searchSuggested": "Suggested for You",
+  "searchError": "Something went wrong",
+  "searchNoResults": "No results found",
+  "searchNoResultsSubtitle": "Try adjusting your search terms",
+  "categoriesTitle": "Explore Categories",
+  "categoriesShowCount": "{count} shows",
+  "@categoriesShowCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "categoryDetailFailed": "Failed to load",
+  "categoryDetailLoadMore": "Load More",
+  "categoryDetailSortBy": "Sort By",
+  "categoryDetailPopular": "Popular",
+  "categoryDetailNewest": "Newest",
+  "categoryDetailTopRated": "Top Rated",
+  "myListTitle": "My List",
+  "myListSaved": "Saved",
+  "myListWatchHistory": "Watch History",
+  "myListError": "Something went wrong",
+  "myListNoSaved": "No saved items yet",
+  "myListNoHistory": "No watch history yet",
+  "myListNoSavedSubtitle": "Start exploring and save your favorites",
+  "myListNoHistorySubtitle": "Your recently watched shows will appear here",
+  "myListExploreShows": "Explore Shows",
+  "myListRemoved": "Removed from My List",
+  "myListLoginTitle": "Login to see your saved shows",
+  "myListLoginSubtitle": "Save your favorite shows and access them anytime",
+  "profileTitle": "Profile",
+  "profileUser": "User",
+  "profileNoPhone": "No phone",
+  "profileEditProfile": "Edit Profile",
+  "profileYourInterests": "Your Interests",
+  "profileNoCategories": "No categories selected",
+  "profileDobLabel": "DOB",
+  "profileNotLoggedIn": "You're not logged in",
+  "profileNotLoggedInSubtitle": "Sign in to access your profile, downloads, and personalized recommendations.",
+  "profileLogin": "Login",
+  "profileCollaboration": "Collaboration",
+  "profileSettings": "Settings & Preferences",
+  "profileMyDownloads": "My Downloads",
+  "profileTermsOfUse": "Terms of Use",
+  "profilePrivacyPolicy": "Privacy Policy",
+  "profileHelpFaq": "Help & FAQ",
+  "profileContactUs": "Contact Us",
+  "profileLogout": "Logout",
+  "profileLogoutTitle": "Logout",
+  "profileLogoutConfirm": "Are you sure you want to logout?",
+  "profileCancel": "Cancel",
+  "editProfileTitle": "Edit Profile",
+  "editProfileTapToChangePhoto": "Tap to change photo",
+  "editProfileFullName": "Full Name",
+  "editProfileNameRequired": "Name is required",
+  "editProfileEmail": "Email",
+  "editProfileEmailRequired": "Email is required",
+  "editProfileInvalidEmail": "Invalid email",
+  "editProfileDob": "Date of Birth",
+  "editProfilePhone": "Phone",
+  "editProfileCategoryPreferences": "Category Preferences",
+  "editProfileAddMore": "Add More",
+  "editProfileAddCategory": "Add Category",
+  "editProfileSaveChanges": "Save Changes",
+  "editProfileUserDataNotAvailable": "User data not available",
+  "editProfileUpdatedSuccess": "Profile updated successfully",
+  "editProfileCancel": "Cancel",
+  "editProfileSubmit": "Submit",
+  "settingsTitle": "Settings",
+  "settingsGeneral": "General",
+  "settingsAppLanguage": "App Language",
+  "settingsSubtitleLanguage": "Subtitle Language",
+  "settingsAppearancePlayback": "Appearance & Playback",
+  "settingsColorTheme": "Color Theme",
+  "settingsLight": "Light",
+  "settingsDark": "Dark",
+  "settingsSystem": "System",
+  "settingsAutoplayNext": "Autoplay Next Episode",
+  "settingsDownloadQuality": "Download Quality",
+  "settingsLow": "Low",
+  "settingsMedium": "Medium",
+  "settingsHigh": "High",
+  "settingsVeryHigh": "Very High",
+  "settingsAccountPrivacy": "Account & Privacy",
+  "settingsAgeRestriction": "Age/Content Restriction",
+  "settingsNotifications": "Notifications",
+  "settingsDangerZone": "Danger Zone",
+  "settingsDeleteAccount": "Delete My Account",
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountHeader": "Delete My Account",
+  "deleteAccountWarning": "This action cannot be undone. All your data will be permanently removed.",
+  "deleteAccountDataLoss": "The following data will be lost:",
+  "deleteAccountReason": "Reason for deletion",
+  "deleteAccountSelectReason": "Select a reason",
+  "deleteAccountNotUsing": "I don't use the app anymore",
+  "deleteAccountTooExpensive": "Too expensive",
+  "deleteAccountPrivacy": "Privacy concerns",
+  "deleteAccountTechnicalIssues": "Technical issues",
+  "deleteAccountFoundAlternative": "Found a better alternative",
+  "deleteAccountOther": "Other",
+  "deleteAccountProfileSettings": "Profile & Settings",
+  "deleteAccountProfileSettingsDesc": "Your profile information, preferences, and app settings will be permanently deleted.",
+  "deleteAccountListeningHistory": "Listening History",
+  "deleteAccountListeningHistoryDesc": "Your listening history, search history, and activity logs will be erased.",
+  "deleteAccountSavedItems": "Saved Items",
+  "deleteAccountSavedItemsDesc": "All your playlists, favorites, and saved content will be removed.",
+  "deleteAccountSubscriptions": "Subscriptions",
+  "deleteAccountSubscriptionsDesc": "Any active subscriptions will be cancelled and premium access will end.",
+  "deleteAccountDelete": "Delete My Account",
+  "deleteAccountCancel": "Cancel",
+  "deleteAccountOtpTitle": "Verify Deletion",
+  "deleteAccountOtpSubtitle": "Enter the OTP sent to {phone}",
+  "@deleteAccountOtpSubtitle": {
+    "placeholders": {
+      "phone": {}
+    }
+  },
+  "deleteAccountOtpConfirm": "Confirm Deletion",
+  "deleteAccountOtpResend": "Resend OTP",
+  "deleteAccountOtpResent": "OTP resent successfully",
+  "accountDeletedTitle": "Account Deleted",
+  "accountDeletedMessage": "Your account has been permanently deleted.\nWe're sorry to see you go.",
+  "accountDeletedBackToHome": "Back to Home",
+  "contactUsTitle": "Contact Us",
+  "contactUsSubtitle": "We'd love to hear from you",
+  "contactUsSubject": "Subject",
+  "contactUsMessageLabel": "Message",
+  "contactUsMessageHint": "Describe your issue or question...",
+  "contactUsAddAttachment": "Add Attachment",
+  "contactUsQuickContact": "Quick Contact",
+  "contactUsEmail": "Email",
+  "contactUsEmailValue": "support@webrofm.com",
+  "contactUsCall": "Call",
+  "contactUsCallValue": "+1 (555) 123-4567",
+  "contactUsWhatsApp": "WhatsApp",
+  "contactUsWhatsAppValue": "Chat with us",
+  "contactUsSend": "Send Message",
+  "contactUsSending": "Sending...",
+  "contactUsNoMessage": "Please enter a message",
+  "contactUsSent": "Message sent successfully!",
+  "contactUsGeneralInquiry": "General Inquiry",
+  "contactUsTechnicalSupport": "Technical Support",
+  "contactUsAccountIssue": "Account Issue",
+  "contactUsBillingQuestion": "Billing Question",
+  "contactUsFeatureRequest": "Feature Request",
+  "contactUsBugReport": "Bug Report",
+  "helpFaqTitle": "Help & FAQ",
+  "helpFaqSearchHint": "Search FAQs...",
+  "helpFaqNoResults": "No results found",
+  "helpFaqStillNeedHelp": "Still need help?",
+  "helpFaqContactUs": "Contact Us",
+  "helpFaqAll": "All",
+  "helpFaqAccount": "Account",
+  "helpFaqPlayback": "Playback",
+  "helpFaqBilling": "Billing",
+  "helpFaqOther": "Other",
+  "helpFaq1Q": "How do I reset my password?",
+  "helpFaq1A": "You can reset your password from the login screen by tapping 'Forgot Password'. Follow the instructions sent to your registered email or phone.",
+  "helpFaq2Q": "Can I change my subscription plan?",
+  "helpFaq2A": "Yes, go to Settings > Subscription to view and change your current plan. Changes will take effect from the next billing cycle.",
+  "helpFaq3Q": "How do I delete my account?",
+  "helpFaq3A": "Go to Settings > Danger Zone > Delete My Account. Follow the verification steps to permanently delete your account.",
+  "helpFaq4Q": "Where are my downloaded files?",
+  "helpFaq4A": "Downloaded episodes are stored within the app under My Downloads. They are available offline for listening anytime.",
+  "helpFaq5Q": "How do I update my profile information?",
+  "helpFaq5A": "Go to Profile > Edit Profile to update your name, email, date of birth, and profile picture.",
+  "helpFaq6Q": "Why is my audio not playing?",
+  "helpFaq6A": "Check your internet connection and try restarting the app. If the issue persists, try clearing the app cache from Settings.",
+  "helpFaq7Q": "How do I get a refund?",
+  "helpFaq7A": "Contact our support team at support@webrofm.com with your transaction details. We'll process your refund within 5-7 business days.",
+  "helpFaq8Q": "How do I report a bug?",
+  "helpFaq8A": "You can report bugs through the Contact Us section in Settings. Please include steps to reproduce the issue and your device information.",
+  "privacyPolicyTitle": "Privacy Policy",
+  "privacyPolicyLastUpdated": "Last updated: July 22, 2026",
+  "privacyPolicyCollection": "Collection",
+  "privacyPolicyCollectionTitle": "Information We Collect",
+  "privacyPolicyCollectionText": "We collect information you provide directly, such as your name, email address, phone number, and profile picture. We also automatically collect certain information when you use our services, including device information, usage data, and listening preferences.",
+  "privacyPolicyUsage": "Usage",
+  "privacyPolicyUsageTitle": "How We Use Your Information",
+  "privacyPolicyUsageText": "We use the information we collect to provide, maintain, and improve our streaming services, personalize your experience, send you updates and promotional materials, and ensure the security of our platform.",
+  "privacyPolicySharing": "Sharing",
+  "privacyPolicySharingTitle": "Information Sharing",
+  "privacyPolicySharingText": "We do not sell your personal information. We may share your data with trusted service providers who assist us in operating our platform, subject to strict confidentiality agreements.",
+  "privacyPolicySecurity": "Security",
+  "privacyPolicySecurityTitle": "Data Security",
+  "privacyPolicySecurityText": "We implement industry-standard security measures to protect your personal information, including encryption in transit and at rest, regular security audits, and access controls.",
+  "privacyPolicyRights": "Rights",
+  "privacyPolicyRightsTitle": "Your Rights & Choices",
+  "privacyPolicyRightsText": "You have the right to access, update, or delete your personal information at any time through your account settings. You can also contact us directly for any privacy-related requests.",
+  "termsOfUseTitle": "Terms of Use",
+  "termsOfUseUsage": "Usage",
+  "termsOfUseUsageTitle": "Usage Guidelines",
+  "termsOfUseUsageText": "By using WebroFM, you agree to use the service for lawful purposes only. You may not modify, distribute, or reproduce any content from our platform without prior written consent. We reserve the right to suspend or terminate access for violations of these terms.",
+  "termsOfUseAccounts": "Accounts",
+  "termsOfUseAccountsTitle": "User Accounts",
+  "termsOfUseAccountsText": "You are responsible for maintaining the confidentiality of your account credentials. You must provide accurate and complete information when creating an account. You must notify us immediately of any unauthorized use of your account.",
+  "termsOfUseContent": "Content",
+  "termsOfUseContentTitle": "Content & Intellectual Property",
+  "termsOfUseContentText": "All content available on WebroFM, including audio streams, videos, and artwork, is protected by copyright and intellectual property laws. Users may not download, record, or redistribute content without explicit permission.",
+  "termsOfUseLiability": "Liability",
+  "termsOfUseLiabilityTitle": "Limitation of Liability",
+  "termsOfUseLiabilityText": "WebroFM shall not be liable for any indirect, incidental, or consequential damages arising from your use of the service. Our total liability shall not exceed the amount paid by you for the service in the past 12 months.",
+  "notificationsTitle": "Notifications",
+  "notificationsEmptyTitle": "No Notifications",
+  "notificationsEmptySubtitle": "You're all caught up! Check back later for updates.",
+  "downloadsTitle": "My Downloads",
+  "downloadsEmptyTitle": "No Downloads Yet",
+  "downloadsEmptySubtitle": "Your downloaded episodes will appear here so you can listen offline anytime.",
+  "downloadsBrowseShows": "Browse Shows",
+  "premiumTitle": "Premium",
+  "collabTitle": "Collaboration",
+  "collabMyStories": "My Stories",
+  "collabMySponsorships": "My Sponsorships",
+  "collabNoStories": "No stories submitted yet.",
+  "collabNoSponsorships": "No sponsorships submitted yet.",
+  "collabApproved": "Approved",
+  "collabRejected": "Rejected",
+  "collabReviewing": "Reviewing",
+  "collabPending": "Pending",
+  "collabShareYourStory": "Share Your Story",
+  "collabShareYourStorySubtitle": "Submit your original story for a chance to be featured.",
+  "collabSubmitStory": "Submit Story",
+  "collabSponsorshipAd": "Sponsorship / Ad",
+  "collabSponsorshipSubtitle": "Submit your brand or business for sponsorship.",
+  "collabSubmitAd": "Submit Ad",
+  "collabDialogStoryTitle": "Submit Your Story",
+  "collabStoryTitle": "Story Title",
+  "collabStoryTitleHint": "Enter your story title",
+  "collabStoryContent": "Story Content",
+  "collabStoryContentHint": "Write your story here...",
+  "collabCancel": "Cancel",
+  "collabSubmit": "Submit",
+  "collabDialogAdTitle": "Submit Ad",
+  "collabBrandName": "Brand Name",
+  "collabBrandNameHint": "Your brand/business name",
+  "collabDescription": "Description",
+  "collabDescriptionHint": "Describe your ad",
+  "collabTargetUrl": "Target URL (optional)",
+  "collabTargetUrlHint": "https://example.com",
+  "collabImageSelected": "Image selected",
+  "collabUploadAdVisual": "Upload Ad Visual",
+  "collabStatusRunning": "Running",
+  "collabStatusExpired": "Expired",
+  "languagesAppLanguage": "App Language",
+  "languagesSubtitleLanguage": "Subtitle Language",
+  "bottomNavHome": "Home",
+  "bottomNavSearch": "Search",
+  "bottomNavCategories": "Categories",
+  "bottomNavMyList": "My List",
+  "bottomNavProfile": "Profile",
+  "networkOffline": "Offline Mode",
+  "networkDownload": "Download Mode",
+  "networkOfflineSnackbar": "Offline Mode On\nStart exploring download content",
+  "networkDismiss": "Dismiss",
+  "loadingPleaseWait": "Please wait...",
+  "commonRetry": "Retry",
+  "guestTimerTitle": "Free Time Over!",
+  "guestTimerBody": "Now login to access all content.\nIt's free for you!",
+  "freeLimitTitle": "Free Limit Reached",
+  "freeLimitBody": "You've used your 1-minute free listening. Please login or sign up to continue listening to the full episode.",
+  "guestTimerLater": "Later",
+  "guestTimerLogin": "Login / Sign Up",
+  "errorDataError": "A data error occurred. Please try again.",
+  "errorInvalidData": "Invalid data format received.",
+  "errorUnexpected": "An unexpected error occurred.",
+  "errorTimeout": "Connection timed out. Please check your internet connection.",
+  "errorNoInternet": "No internet connection. Please check your network settings.",
+  "errorCancelled": "Request was cancelled.",
+  "errorSecurity": "Connection security error. Please update your app.",
+  "errorNetwork": "An unexpected network error occurred.",
+  "errorInvalidRequest": "Invalid request. Please verify your input.",
+  "errorSessionExpired": "Session expired. Please sign in again.",
+  "errorPermissionDenied": "You do not have permission to perform this action.",
+  "errorNotFound": "The requested resource was not found.",
+  "errorConflict": "Conflict detected. The resource may have been updated.",
+  "errorValidationFailed": "Validation failed. Please check your input.",
+  "errorTooManyRequests": "Too many requests. Please try again later.",
+  "errorServer": "Server error. Please try again later.",
+  "errorServiceUnavailable": "Service temporarily unavailable. Please try again.",
+  "errorUnderMaintenance": "Service is under maintenance. Please try again later.",
+  "errorGeneric": "Something went wrong. (Error {code})",
+  "@errorGeneric": {
+    "placeholders": {
+      "code": {}
+    }
+  },
+  "errorConnectionTimeout": "Connection timed out. Please try again.",
+  "errorNoConnection": "No internet connection.",
+  "errorServerWithCode": "Server error ({code})",
+  "@errorServerWithCode": {
+    "placeholders": {
+      "code": {}
+    }
+  },
+  "errorSomethingWentWrong": "Something went wrong. Please try again.",
+  "pageNotFound": "Page Not Found",
+  "pageNotFoundMessage": "The page you're looking for doesn't exist.",
+  "goHome": "Go Home",
+  "relativeTimeJustNow": "just now",
+  "relativeTimeMinAgo": "{minutes}m ago",
+  "@relativeTimeMinAgo": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "relativeTimeHourAgo": "{hours}h ago",
+  "@relativeTimeHourAgo": {
+    "placeholders": {
+      "hours": {}
+    }
+  },
+  "relativeTimeDayAgo": "{days}d ago",
+  "@relativeTimeDayAgo": {
+    "placeholders": {
+      "days": {}
+    }
+  },
+  "relativeTimeWeekAgo": "{weeks}w ago",
+  "@relativeTimeWeekAgo": {
+    "placeholders": {
+      "weeks": {}
+    }
+  },
+  "relativeTimeMonthAgo": "{months}mo ago",
+  "@relativeTimeMonthAgo": {
+    "placeholders": {
+      "months": {}
+    }
+  },
+  "relativeTimeYearAgo": "{years}y ago",
+  "@relativeTimeYearAgo": {
+    "placeholders": {
+      "years": {}
+    }
+  },
+  "relativeTimeInMin": "in {minutes}m",
+  "@relativeTimeInMin": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "relativeTimeInHour": "in {hours}h",
+  "@relativeTimeInHour": {
+    "placeholders": {
+      "hours": {}
+    }
+  },
+  "relativeTimeInDay": "in {days}d",
+  "@relativeTimeInDay": {
+    "placeholders": {
+      "days": {}
+    }
+  },
+  "durationFormatHours": "{hours}h {minutes}m",
+  "@durationFormatHours": {
+    "placeholders": {
+      "hours": {},
+      "minutes": {}
+    }
+  },
+  "durationFormatMinutes": "{minutes}m {seconds}s",
+  "@durationFormatMinutes": {
+    "placeholders": {
+      "minutes": {},
+      "seconds": {}
+    }
+  },
+  "fileSizeBytes": "{size} B",
+  "@fileSizeBytes": {
+    "placeholders": {
+      "size": {}
+    }
+  },
+  "fileSizeKB": "{size} KB",
+  "@fileSizeKB": {
+    "placeholders": {
+      "size": {}
+    }
+  },
+  "fileSizeMB": "{size} MB",
+  "@fileSizeMB": {
+    "placeholders": {
+      "size": {}
+    }
+  },
+  "fileSizeGB": "{size} GB",
+  "@fileSizeGB": {
+    "placeholders": {
+      "size": {}
+    }
+  },
+  "countViewsM": "{count}M",
+  "@countViewsM": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "countViewsK": "{count}K",
+  "@countViewsK": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "episodeCount": "{count} ep",
+  "@episodeCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "seasonEpisodeFormat": "S{season} E{episode}",
+  "@seasonEpisodeFormat": {
+    "placeholders": {
+      "season": {},
+      "episode": {}
+    }
+  },
+  "seasonLabel": "Season {season}",
+  "@seasonLabel": {
+    "placeholders": {
+      "season": {}
+    }
+  },
+  "episodeNotAvailableInLanguage": "No episodes available in {language}",
+  "@episodeNotAvailableInLanguage": {
+    "placeholders": {
+      "language": {}
+    }
+  },
+  "contentDisclaimer": "Disclaimer: All audio and video content is entirely fictional and created for entertainment only. It does not depict, represent, or refer to any real person, story, or event.",
+  "@contentDisclaimer": {
+    "placeholders": {}
+  },
+  "categoryDrama": "Drama",
+  "categoryComedy": "Comedy",
+  "categoryPodcasts": "Podcasts",
+  "categoryMusic": "Music",
+  "categoryKids": "Kids",
+  "categoryDevotional": "Devotional",
+  "categoryNews": "News",
+  "categorySports": "Sports",
+  "categoryTechnology": "Technology",
+  "categoryEducation": "Education",
+  "categoryBusiness": "Business",
+  "categoryHealth": "Health",
+  "categoryScience": "Science",
+  "categoryArts": "Arts",
+  "trendingDramaSeries": "Drama Series",
+  "trendingComedyShows": "Comedy Shows",
+  "trendingPodcasts": "Podcasts",
+  "trendingMusicAlbums": "Music Albums",
+  "trendingKidsStories": "Kids Stories",
+  "trendingDevotional": "Devotional",
+  "trendingNewsToday": "News Today",
+  "trendingSportsHighlights": "Sports Highlights",
+  "languageEnglish": "English",
+  "languageHindi": "Hindi",
+  "languagePunjabi": "Punjabi",
+  "languageHaryanvi": "Haryanvi",
+  "languageMarathi": "Marathi",
+  "languageGujarati": "Gujarati",
+  "languageBengali": "Bengali",
+  "languageTamil": "Tamil",
+  "languageTelugu": "Telugu",
+  "languageKannada": "Kannada",
+  "languageMalayalam": "Malayalam",
+  "languageUrdu": "Urdu",
+  "pressBackToExit": "Press back again to exit",
+  "exitDialogTitle": "Exit App?",
+  "exitDialogBody": "Are you sure you want to exit?",
+  "exitDialogConfirm": "Exit",
+  "exitDialogCancel": "Cancel",
+  "profileShareApp": "Share App",
+  "profileShareAppMessage": "Check out WebroFM - your go-to app for streaming shows and podcasts!"
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  PrivacyInfo.xcprivacy — Required by Apple since Spring 2024 (iOS 17+)
+  Declares which privacy-sensitive APIs the app and its dependencies use.
+  
+  This file must be added to the Xcode project:
+  1. Open ios/Runner.xcworkspace in Xcode
+  2. Right-click Runner group → Add Files to "Runner"
+  3. Select this PrivacyInfo.xcprivacy file
+  4. Ensure "Copy items if needed" is checked
+  5. Target: Runner must be selected
+-->
+<plist version="1.0">
+<dict>
+    <!-- Privacy-Accessed API Types (required disclosures) -->
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <!-- UserDefaults — used by Flutter, SharedPreferences, get_storage -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>CA92.1</string>
+            </array>
+        </dict>
+        <!-- File Timestamp — used by path_provider, file_picker -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>C617.1</string>
+            </array>
+        </dict>
+        <!-- Disk Space — used by path_provider, sqflite -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>E174.1</string>
+            </array>
+        </dict>
+        <!-- System Boot Time — used by some Flutter plugins -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>35F9.1</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- Data Collection Declaration -->
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+
+    <!-- Tracking Declaration -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+
+    <!-- Tracking Domains (empty — no tracking) -->
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+</dict>
+</plist>

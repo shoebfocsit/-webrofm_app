@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  ExportOptions.plist — Used by `flutter build ipa` for App Store distribution
+  
+  IMPORTANT: Replace the following placeholders before building:
+  - YOUR_APPLE_TEAM_ID → Your 10-character Apple Team ID 
+    (find at: https://developer.apple.com/account → Membership Details)
+  - YOUR_PROVISIONING_PROFILE_NAME → The name of your App Store provisioning profile
+    (find at: Apple Developer Portal → Certificates, Identifiers & Profiles → Profiles)
+-->
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store-connect</string>
+
+    <key>destination</key>
+    <string>upload</string>
+
+    <key>teamID</key>
+    <string>YOUR_APPLE_TEAM_ID</string>
+
+    <key>uploadBitcode</key>
+    <false/>
+
+    <key>uploadSymbols</key>
+    <true/>
+
+    <key>signingStyle</key>
+    <string>manual</string>
+
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.webrofm.webrofm</key>
+        <string>YOUR_PROVISIONING_PROFILE_NAME</string>
+    </dict>
+</dict>
+</plist>
