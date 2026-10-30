@@ -35,9 +35,9 @@ jobs:
           pod repo update
           pod install
 
-      - name: Build macOS App (Release, No Code-Signing)
+      - name: Build macOS App (Release)
         run: |
-          flutter build macos --release --no-codesign
+          flutter build macos --release
 
       - name: Compress macOS App Bundle
         run: |
