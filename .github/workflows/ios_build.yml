@@ -1,0 +1,148 @@
+name: Build and Deploy iOS App
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build iOS and Upload to TestFlight
+    runs-on: macos-latest
+    timeout-minutes: 60
+
+    env:
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Flutter ───────────────────────────────
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # ── 3. CocoaPods ─────────────────────────────
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install --repo-update
+
+      # ── 4. Ruby + Fastlane ────────────────────────
+      # Reads Gemfile from project root → installs fastlane
+      - name: Setup Ruby & Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      # ── 5. Download Certificate via Apple API ─────
+      # No .p12 or Mac needed! Fastlane fetches the
+      # distribution certificate directly from Apple
+      # using your App Store Connect API credentials.
+      - name: Download Distribution Certificate
+        run: |
+          mkdir -p /tmp/asc_keys /tmp/certs /tmp/profiles
+
+          # Write the .p8 API key file for Fastlane
+          printf '%s' "$ASC_PRIVATE_KEY" > /tmp/asc_keys/AuthKey_${ASC_KEY_ID}.p8
+
+          bundle exec fastlane run get_certificates \
+            api_key_path:"/tmp/asc_keys/AuthKey_${ASC_KEY_ID}.p8" \
+            issuer_id:"$ASC_ISSUER_ID" \
+            key_id:"$ASC_KEY_ID" \
+            output_path:"/tmp/certs" \
+            platform:"ios"
+
+          echo "✅ Distribution certificate downloaded"
+
+      # ── 6. Download Provisioning Profile ──────────
+      - name: Download Provisioning Profile
+        run: |
+          bundle exec fastlane run get_provisioning_profile \
+            api_key_path:"/tmp/asc_keys/AuthKey_${ASC_KEY_ID}.p8" \
+            issuer_id:"$ASC_ISSUER_ID" \
+            key_id:"$ASC_KEY_ID" \
+            app_identifier:"com.webrofm.webrofm" \
+            output_path:"/tmp/profiles" \
+            readonly:"false"
+
+          # Find the downloaded profile file
+          PROFILE_FILE=$(find /tmp/profiles -name "*.mobileprovision" | head -1)
+          if [ -z "$PROFILE_FILE" ]; then
+            echo "❌ No provisioning profile found in /tmp/profiles"
+            exit 1
+          fi
+
+          # Extract UUID from the profile
+          PROFILE_UUID=$(/usr/libexec/PlistBuddy \
+            -c "Print :UUID" \
+            /dev/stdin <<< "$(security cms -D -i "$PROFILE_FILE")")
+
+          # Install into Xcode's search path
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp "$PROFILE_FILE" \
+            ~/Library/MobileDevice/Provisioning\ Profiles/"$PROFILE_UUID".mobileprovision
+
+          echo "PROFILE_UUID=$PROFILE_UUID" >> $GITHUB_ENV
+          echo "✅ Provisioning profile installed: $PROFILE_UUID"
+
+      # ── 7. Inject real values into ExportOptions ──
+      - name: Configure ExportOptions.plist
+        run: |
+          sed -i '' \
+            "s/YOUR_APPLE_TEAM_ID/$APPLE_TEAM_ID/g" \
+            ios/ExportOptions.plist
+
+          sed -i '' \
+            "s/YOUR_PROVISIONING_PROFILE_NAME/$PROFILE_UUID/g" \
+            ios/ExportOptions.plist
+
+          echo "=== ExportOptions.plist after substitution ==="
+          cat ios/ExportOptions.plist
+
+      # ── 8. Build signed IPA ───────────────────────
+      - name: Build iOS IPA (signed)
+        run: |
+          flutter build ipa \
+            --release \
+            --export-options-plist=ios/ExportOptions.plist
+
+      - name: Verify IPA exists
+        run: |
+          IPA_FILE=$(find build/ios/ipa -name "*.ipa" | head -1)
+          if [ -z "$IPA_FILE" ]; then
+            echo "❌ ERROR: No .ipa file found after build!"
+            ls -la build/ios/ipa/ 2>/dev/null || echo "(directory missing)"
+            exit 1
+          fi
+          echo "✅ IPA found: $IPA_FILE"
+          echo "IPA_PATH=$IPA_FILE" >> $GITHUB_ENV
+
+      # ── 9. Upload to TestFlight ───────────────────
+      - name: Upload to TestFlight
+        uses: apple-actions/upload-testflight-build@v3
+        with:
+          app-path: ${{ env.IPA_PATH }}
+          issuer-id: ${{ secrets.ASC_ISSUER_ID }}
+          api-key-id: ${{ secrets.ASC_KEY_ID }}
+          api-private-key: ${{ secrets.ASC_PRIVATE_KEY }}
+
+      # ── 10. Cleanup sensitive files ───────────────
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -rf /tmp/asc_keys /tmp/certs /tmp/profiles
+          echo "🧹 Sensitive files cleaned up"
