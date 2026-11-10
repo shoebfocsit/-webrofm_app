@@ -37,8 +37,16 @@ jobs:
       # ── 3. CocoaPods ─────────────────────────────
       - name: Install CocoaPods dependencies
         run: |
+          # flutter pub get must run before pod install so that
+          # Generated.xcconfig and Flutter.xcconfig are created.
+          # Without them CocoaPods cannot resolve the Flutter pod.
+          flutter precache --ios
+
           cd ios
-          pod install --repo-update
+          # Clean any stale pods cache first
+          rm -rf Pods Podfile.lock
+          pod repo update
+          pod install
 
       # ── 4. Ruby + Fastlane ────────────────────────
       # Reads Gemfile from project root → installs fastlane
