@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── 2. Flutter ───────────────────────────────
+      # ── 2. Flutter Setup ─────────────────────────
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -37,120 +37,74 @@ jobs:
       # ── 3. CocoaPods ─────────────────────────────
       - name: Install CocoaPods dependencies
         run: |
-          # flutter pub get must run before pod install so that
-          # Generated.xcconfig and Flutter.xcconfig are created.
-          # Without them CocoaPods cannot resolve the Flutter pod.
           flutter precache --ios
-
           cd ios
-          # Clean any stale pods cache first
           rm -rf Pods Podfile.lock
           pod repo update
           pod install
 
-      # ── 4. Ruby + Fastlane ────────────────────────
-      # Reads Gemfile from project root → installs fastlane
+      # ── 4. Ruby & Fastlane ────────────────────────
       - name: Setup Ruby & Fastlane
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
 
-      # ── 5. Download Certificate via Apple API ─────
-      # No .p12 or Mac needed! Fastlane fetches the
-      # distribution certificate directly from Apple
-      # using your App Store Connect API credentials.
-      - name: Download Distribution Certificate
+      # ── 5. Setup Certificates & Profile ──────────
+      - name: Fetch Signing Certificates and Profile
         run: |
-          mkdir -p /tmp/asc_keys /tmp/certs /tmp/profiles
+          mkdir -p /tmp/certs /tmp/profiles
+          
+          # Unlock keychain on macOS runner
+          security default-keychain -s ~/Library/Keychains/login.keychain-db || true
+          security unlock-keychain -p "" ~/Library/Keychains/login.keychain-db || true
 
-          # Write the .p8 API key file for Fastlane
-          printf '%s' "$ASC_PRIVATE_KEY" > /tmp/asc_keys/AuthKey_${ASC_KEY_ID}.p8
+          # Run Fastlane lane
+          bundle exec fastlane ios setup_signing
 
-          bundle exec fastlane run get_certificates \
-            api_key_path:"/tmp/asc_keys/AuthKey_${ASC_KEY_ID}.p8" \
-            issuer_id:"$ASC_ISSUER_ID" \
-            key_id:"$ASC_KEY_ID" \
-            output_path:"/tmp/certs" \
-            platform:"ios"
-
-          echo "✅ Distribution certificate downloaded"
-
-      # ── 6. Download Provisioning Profile ──────────
-      - name: Download Provisioning Profile
-        run: |
-          bundle exec fastlane run get_provisioning_profile \
-            api_key_path:"/tmp/asc_keys/AuthKey_${ASC_KEY_ID}.p8" \
-            issuer_id:"$ASC_ISSUER_ID" \
-            key_id:"$ASC_KEY_ID" \
-            app_identifier:"com.webrofm.webrofm" \
-            output_path:"/tmp/profiles" \
-            readonly:"false"
-
-          # Find the downloaded profile file
+          # Extract Provisioning Profile Name
           PROFILE_FILE=$(find /tmp/profiles -name "*.mobileprovision" | head -1)
           if [ -z "$PROFILE_FILE" ]; then
-            echo "❌ No provisioning profile found in /tmp/profiles"
+            echo "❌ No profile found in /tmp/profiles"
             exit 1
           fi
+          
+          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< "$(security cms -D -i "$PROFILE_FILE")")
+          echo "Installed Profile: $PROFILE_NAME"
+          echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
 
-          # Extract UUID from the profile
-          PROFILE_UUID=$(/usr/libexec/PlistBuddy \
-            -c "Print :UUID" \
-            /dev/stdin <<< "$(security cms -D -i "$PROFILE_FILE")")
-
-          # Install into Xcode's search path
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp "$PROFILE_FILE" \
-            ~/Library/MobileDevice/Provisioning\ Profiles/"$PROFILE_UUID".mobileprovision
-
-          echo "PROFILE_UUID=$PROFILE_UUID" >> $GITHUB_ENV
-          echo "✅ Provisioning profile installed: $PROFILE_UUID"
-
-      # ── 7. Inject real values into ExportOptions ──
+      # ── 6. Configure ExportOptions.plist ─────────
       - name: Configure ExportOptions.plist
         run: |
-          sed -i '' \
-            "s/YOUR_APPLE_TEAM_ID/$APPLE_TEAM_ID/g" \
-            ios/ExportOptions.plist
-
-          sed -i '' \
-            "s/YOUR_PROVISIONING_PROFILE_NAME/$PROFILE_UUID/g" \
-            ios/ExportOptions.plist
-
-          echo "=== ExportOptions.plist after substitution ==="
+          sed -i '' "s/YOUR_APPLE_TEAM_ID/$APPLE_TEAM_ID/g" ios/ExportOptions.plist
+          sed -i '' "s/YOUR_PROVISIONING_PROFILE_NAME/$PROFILE_NAME/g" ios/ExportOptions.plist
+          echo "=== ExportOptions.plist ==="
           cat ios/ExportOptions.plist
 
-      # ── 8. Build signed IPA ───────────────────────
-      - name: Build iOS IPA (signed)
+      # ── 7. Build Signed IPA ───────────────────────
+      - name: Build iOS IPA
         run: |
           flutter build ipa \
             --release \
             --export-options-plist=ios/ExportOptions.plist
 
-      - name: Verify IPA exists
+      - name: Verify IPA
         run: |
           IPA_FILE=$(find build/ios/ipa -name "*.ipa" | head -1)
           if [ -z "$IPA_FILE" ]; then
-            echo "❌ ERROR: No .ipa file found after build!"
-            ls -la build/ios/ipa/ 2>/dev/null || echo "(directory missing)"
+            echo "❌ ERROR: No .ipa file found in build/ios/ipa!"
             exit 1
           fi
-          echo "✅ IPA found: $IPA_FILE"
+          echo "✅ Found IPA: $IPA_FILE"
           echo "IPA_PATH=$IPA_FILE" >> $GITHUB_ENV
 
-      # ── 9. Upload to TestFlight ───────────────────
-      - name: Upload to TestFlight
-        uses: apple-actions/upload-testflight-build@v3
-        with:
-          app-path: ${{ env.IPA_PATH }}
-          issuer-id: ${{ secrets.ASC_ISSUER_ID }}
-          api-key-id: ${{ secrets.ASC_KEY_ID }}
-          api-private-key: ${{ secrets.ASC_PRIVATE_KEY }}
+      # ── 8. Upload to TestFlight ───────────────────
+      - name: Upload to TestFlight via Fastlane
+        run: |
+          bundle exec fastlane ios upload_testflight ipa:"${{ env.IPA_PATH }}"
 
-      # ── 10. Cleanup sensitive files ───────────────
-      - name: Cleanup
+      # ── 9. Cleanup ────────────────────────────────
+      - name: Cleanup sensitive artifacts
         if: always()
         run: |
-          rm -rf /tmp/asc_keys /tmp/certs /tmp/profiles
-          echo "🧹 Sensitive files cleaned up"
+          rm -rf /tmp/certs /tmp/profiles
