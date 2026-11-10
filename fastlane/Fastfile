@@ -1,44 +1,32 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Fetch certificates, profile, build and upload to TestFlight"
-
-  lane :setup_signing do
-    api_key = app_store_connect_api_key(
+  # Shared App Store Connect API key
+  def asc_api_key
+    app_store_connect_api_key(
       key_id: ENV["ASC_KEY_ID"],
       issuer_id: ENV["ASC_ISSUER_ID"],
       key_content: ENV["ASC_PRIVATE_KEY"],
       is_key_content_base64: false,
       in_house: false
     )
+  end
 
-    # Automatically creates or fetches distribution certificate into keychain
-    get_certificates(
-      api_key: api_key,
-      output_path: "/tmp/certs",
-      keychain_password: ""
-    )
-
-    # Automatically downloads or creates App Store provisioning profile and installs it
-    get_provisioning_profile(
-      api_key: api_key,
+  desc "Sync distribution certificate + App Store provisioning profile via match (encrypted git repo)"
+  lane :setup_signing do
+    sync_code_signing(
+      api_key: asc_api_key,
       app_identifier: "com.webrofm.app",
-      output_path: "/tmp/profiles"
+      type: "appstore",
+      storage_mode: "git",
+      git_url: ENV["MATCH_GIT_URL"]
     )
   end
 
   lane :upload_testflight do |options|
-    api_key = app_store_connect_api_key(
-      key_id: ENV["ASC_KEY_ID"],
-      issuer_id: ENV["ASC_ISSUER_ID"],
-      key_content: ENV["ASC_PRIVATE_KEY"],
-      is_key_content_base64: false,
-      in_house: false
-    )
-
     upload_to_testflight(
       ipa: options[:ipa],
-      api_key: api_key,
+      api_key: asc_api_key,
       skip_waiting_for_build_processing: true
     )
   end

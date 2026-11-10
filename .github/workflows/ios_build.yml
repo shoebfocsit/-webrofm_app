@@ -18,6 +18,8 @@ jobs:
       ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
       ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
 
     steps:
       # ── 1. Checkout ──────────────────────────────
@@ -50,34 +52,24 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      # ── 5. Setup Certificates & Profile ──────────
+      # ── 5. Setup Certificates & Profile (fastlane match) ─────
       - name: Fetch Signing Certificates and Profile
         run: |
-          mkdir -p /tmp/certs /tmp/profiles
-          
           # Unlock keychain on macOS runner
           security default-keychain -s ~/Library/Keychains/login.keychain-db || true
           security unlock-keychain -p "" ~/Library/Keychains/login.keychain-db || true
 
-          # Run Fastlane lane
+          # Sync certificate + profile from the encrypted match git repo.
+          # First run: creates new cert/profile and commits them to the repo.
+          # Later runs: just installs the stored ones (no new certs are created).
           bundle exec fastlane ios setup_signing
-
-          # Extract Provisioning Profile Name
-          PROFILE_FILE=$(find /tmp/profiles -name "*.mobileprovision" | head -1)
-          if [ -z "$PROFILE_FILE" ]; then
-            echo "❌ No profile found in /tmp/profiles"
-            exit 1
-          fi
-          
-          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin <<< "$(security cms -D -i "$PROFILE_FILE")")
-          echo "Installed Profile: $PROFILE_NAME"
-          echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
 
       # ── 6. Configure ExportOptions.plist ─────────
       - name: Configure ExportOptions.plist
         run: |
           /usr/libexec/PlistBuddy -c "Set :teamID $APPLE_TEAM_ID" ios/ExportOptions.plist
-          /usr/libexec/PlistBuddy -c "Set :provisioningProfiles:com.webrofm.app $PROFILE_NAME" ios/ExportOptions.plist
+          # match installs profiles with this deterministic name
+          /usr/libexec/PlistBuddy -c "Set :provisioningProfiles:com.webrofm.app match AppStore com.webrofm.app" ios/ExportOptions.plist
           echo "=== ExportOptions.plist ==="
           cat ios/ExportOptions.plist
 
@@ -103,8 +95,3 @@ jobs:
         run: |
           bundle exec fastlane ios upload_testflight ipa:"${{ env.IPA_PATH }}"
 
-      # ── 9. Cleanup ────────────────────────────────
-      - name: Cleanup sensitive artifacts
-        if: always()
-        run: |
-          rm -rf /tmp/certs /tmp/profiles
