@@ -1,4 +1,4 @@
-name: Build macOS App
+name: Build and Deploy iOS App
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-macos:
-    name: Build macOS (Flutter Desktop)
+  build-ios:
+    name: Build iOS and Upload to TestFlight
     runs-on: macos-latest
     timeout-minutes: 45
 
@@ -23,30 +23,22 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Enable macOS desktop support
-        run: flutter config --enable-macos-desktop
-
       - name: Install dependencies
         run: flutter pub get
 
       - name: Setup CocoaPods
         run: |
-          cd macos
-          pod repo update
+          cd ios
           pod install
 
-      - name: Build macOS App (Release)
+      - name: Build iOS App (IPA)
         run: |
-          flutter build macos --release
+          flutter build ipa --release --no-codesign
 
-      - name: Compress macOS App Bundle
-        run: |
-          cd build/macos/Build/Products/Release
-          tar -czf WebroFM-macOS.tar.gz *.app
-
-      - name: Upload macOS App Artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload build to TestFlight
+        uses: apple-actions/upload-testflight-build@v3
         with:
-          name: macos-app-bundle
-          path: build/macos/Build/Products/Release/WebroFM-macOS.tar.gz
-          retention-days: 14
+          app-path: "build/ios/ipa/*.ipa"
+          issuer-id: ${{ secrets.ASC_ISSUER_ID }}
+          api-key-id: ${{ secrets.ASC_KEY_ID }}
+          api-private-key: ${{ secrets.ASC_PRIVATE_KEY }}
