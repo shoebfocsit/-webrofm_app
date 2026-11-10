@@ -76,8 +76,8 @@ jobs:
       # ── 6. Configure ExportOptions.plist ─────────
       - name: Configure ExportOptions.plist
         run: |
-          sed -i '' "s/YOUR_APPLE_TEAM_ID/$APPLE_TEAM_ID/g" ios/ExportOptions.plist
-          sed -i '' "s/YOUR_PROVISIONING_PROFILE_NAME/$PROFILE_NAME/g" ios/ExportOptions.plist
+          /usr/libexec/PlistBuddy -c "Set :teamID $APPLE_TEAM_ID" ios/ExportOptions.plist
+          /usr/libexec/PlistBuddy -c "Set :provisioningProfiles:com.webrofm.webrofm $PROFILE_NAME" ios/ExportOptions.plist
           echo "=== ExportOptions.plist ==="
           cat ios/ExportOptions.plist
 
