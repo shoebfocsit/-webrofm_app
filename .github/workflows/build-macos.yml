@@ -1,44 +1,14 @@
-name: Build and Deploy iOS App
+# This workflow has been superseded by ios_build.yml
+# Keeping this file to avoid breaking existing references,
+# but all logic is now in ios_build.yml which uses Fastlane
+# for automatic certificate management (no Mac required).
+#
+# This file intentionally has no jobs defined.
+name: "[DISABLED] Old iOS Build"
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
-
-jobs:
-  build-ios:
-    name: Build iOS and Upload to TestFlight
-    runs-on: macos-latest
-    timeout-minutes: 45
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Setup CocoaPods
-        run: |
-          cd ios
-          pod install
-
-      - name: Build iOS App (IPA)
-        run: |
-          flutter build ipa --release --no-codesign
-
-      - name: Upload build to TestFlight
-        uses: apple-actions/upload-testflight-build@v3
-        with:
-          app-path: "build/ios/ipa/*.ipa"
-          issuer-id: ${{ secrets.ASC_ISSUER_ID }}
-          api-key-id: ${{ secrets.ASC_KEY_ID }}
-          api-private-key: ${{ secrets.ASC_PRIVATE_KEY }}
+    inputs:
+      reason:
+        description: 'This workflow is disabled. Use ios_build.yml instead.'
+        required: false
