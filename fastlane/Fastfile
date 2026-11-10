@@ -15,13 +15,14 @@ platform :ios do
     # Automatically creates or fetches distribution certificate into keychain
     get_certificates(
       api_key: api_key,
-      output_path: "/tmp/certs"
+      output_path: "/tmp/certs",
+      keychain_password: ""
     )
 
     # Automatically downloads or creates App Store provisioning profile and installs it
     get_provisioning_profile(
       api_key: api_key,
-      app_identifier: "com.webrofm.webrofm",
+      app_identifier: "com.webrofm.app",
       output_path: "/tmp/profiles"
     )
   end
