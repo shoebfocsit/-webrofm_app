@@ -62,6 +62,8 @@ jobs:
           security default-keychain -s ~/Library/Keychains/build.keychain
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/build.keychain
           security set-keychain-settings -lut 21600 ~/Library/Keychains/build.keychain
+          # Add keychain to the codesigning search list (critical!)
+          security list-keychain -d user -s ~/Library/Keychains/build.keychain ~/Library/Keychains/login.keychain-db
 
       - name: Fetch Signing Certificates and Profile
         env:
@@ -71,6 +73,10 @@ jobs:
 
           # Allow codesign (headless) to access the private key
           security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/build.keychain
+
+          # Debug: show what signing identities are visible now
+          echo "=== Visible codesigning identities ==="
+          security find-identity -v -p codesigning || true
 
       # ── 6. Configure ExportOptions.plist ─────────
       - name: Configure ExportOptions.plist
