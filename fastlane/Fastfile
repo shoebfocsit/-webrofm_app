@@ -19,7 +19,8 @@ platform :ios do
       app_identifier: "com.webrofm.app",
       type: "appstore",
       storage_mode: "git",
-      git_url: ENV["MATCH_GIT_URL"]
+      git_url: ENV["MATCH_GIT_URL"],
+      git_branch: "certs"
     )
   end
 
