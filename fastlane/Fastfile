@@ -20,7 +20,9 @@ platform :ios do
       type: "appstore",
       storage_mode: "git",
       git_url: ENV["MATCH_GIT_URL"],
-      git_branch: "certs"
+      git_branch: "certs",
+      keychain_name: "build.keychain",
+      keychain_password: ENV["KEYCHAIN_PASSWORD"]
     )
   end
 

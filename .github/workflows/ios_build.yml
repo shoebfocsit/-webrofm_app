@@ -53,16 +53,24 @@ jobs:
           bundler-cache: true
 
       # ── 5. Setup Certificates & Profile (fastlane match) ─────
-      - name: Fetch Signing Certificates and Profile
+      - name: Prepare build keychain
+        env:
+          KEYCHAIN_PASSWORD: webrofm-ci-keychain-2026
         run: |
-          # Unlock keychain on macOS runner
-          security default-keychain -s ~/Library/Keychains/login.keychain-db || true
-          security unlock-keychain -p "" ~/Library/Keychains/login.keychain-db || true
+          # Dedicated unlocked keychain for CI signing (xcodebuild needs this)
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain || true
+          security default-keychain -s ~/Library/Keychains/build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/build.keychain
+          security set-keychain-settings -lut 21600 ~/Library/Keychains/build.keychain
 
-          # Sync certificate + profile from the encrypted match git repo.
-          # First run: creates new cert/profile and commits them to the repo.
-          # Later runs: just installs the stored ones (no new certs are created).
+      - name: Fetch Signing Certificates and Profile
+        env:
+          KEYCHAIN_PASSWORD: webrofm-ci-keychain-2026
+        run: |
           bundle exec fastlane ios setup_signing
+
+          # Allow codesign (headless) to access the private key
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" ~/Library/Keychains/build.keychain
 
       # ── 6. Configure ExportOptions.plist ─────────
       - name: Configure ExportOptions.plist
